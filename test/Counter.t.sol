@@ -9,16 +9,21 @@ contract CounterTest is Test {
 
     function setUp() public {
         counter = new Counter();
-        counter.setNumber(0);
+    }// setUp is initialization logic. it prevents me from instantiating the counter contract in each test function
+
+    // when testing functions, all functions should be prefixed with test and they must be public or external
+
+    function testInc() public {
+        counter.inc();
+        assertEq(counter.count(), 1);
     }
 
-    function test_Increment() public {
-        counter.increment();
-        assertEq(counter.number(), 1);
+    function testFailDec() public {
+        counter.inc();
     }
 
-    function testFuzz_SetNumber(uint256 x) public {
-        counter.setNumber(x);
-        assertEq(counter.number(), x);
-    }
+    // function testDecUnderflow() public {
+    //     vm.expectRevert(arithmeticError);
+    //     counter.dec();
+    // }
 }
